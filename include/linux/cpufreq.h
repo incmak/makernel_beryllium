@@ -547,6 +547,49 @@ void cpufreq_unregister_governor(struct cpufreq_governor *governor);
 
 struct cpufreq_governor *cpufreq_default_governor(void);
 struct cpufreq_governor *cpufreq_fallback_governor(void);
+/* CPUFREQ DEFAULT GOVERNOR */
+/*
+ * Performance governor is fallback governor if any other gov failed to auto
+ * load due latency restrictions
+ */
+
+
+
+#ifdef CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+extern struct cpufreq_governor cpufreq_gov_schedutil;
+#elif CONFIG_CPU_FREQ_GOV_ELECTROUTIL
+extern struct cpufreq_governor cpufreq_gov_electroutil;
+#elif CONFIG_CPU_FREQ_GOV_PWRUTILX
+extern struct cpufreq_governor cpufreq_gov_pwrutilx;
+#elif CONFIG_CPU_FREQ_GOV_DARKUTIL
+extern struct cpufreq_governor cpufreq_gov_darkutil;
+#elif CONFIG_CPU_FREQ_GOV_SCHEDALUCARD
+extern struct cpufreq_governor cpufreq_gov_schedalucard;
+#elif CONFIG_CPU_FREQ_GOV_BLU_SCHEDUTIL
+extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
+#endif
+
+#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+extern struct cpufreq_governor cpufreq_gov_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ELECTROUTIL)
+extern struct cpufreq_governor cpufreq_gov_electroutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_electroutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PWRUTILX)
+extern struct cpufreq_governor cpufreq_gov_pwrutilx;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pwrutilx)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_DARKUTIL)
+extern struct cpufreq_governor cpufreq_gov_darkutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_darkutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDALUCARD)
+extern struct cpufreq_governor cpufreq_gov_schedalucard;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_schedalucard)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_BLU_SCHEDUTIL)
+extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_blu_schedutil)
+#endif
+
+
 
 static inline void cpufreq_policy_apply_limits(struct cpufreq_policy *policy)
 {
